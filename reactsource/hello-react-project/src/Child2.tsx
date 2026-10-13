@@ -1,0 +1,30 @@
+
+import React, { useContext } from 'react';
+
+const Child2 = () => {
+    const context = useContext(CountContext)
+    if (!context){
+        throw new Error("CountContext null")
+    }
+    
+    const {count, increaseCount} = context
+
+    return (
+        <div>
+            <h2 className='text-3xl'>Child2</h2>
+            <p>count : {count}</p>
+            <button className='border px-4' onClick={increaseCount}> 증가 </button>
+        </div>
+    );
+};
+
+const Child1 = () => {
+    return (
+        <div>
+            <h2 className='text-3xl'>Child1</h2>
+            <Child2 />
+        </div>
+    );
+};
+
+export default Child1;

@@ -1,0 +1,32 @@
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { postBoard } from "../apis/boardApi";
+import BoardForm from "../components/BoardForm";
+import type { BoardCreate } from "../types/board";
+
+const BoardWrite = () => {
+  const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const size = Number(searchParams.get("size")) || 10;
+
+  // submit 시 서버 전송
+  const onSubmit = async (board: BoardCreate) => {
+    try {
+      const result = await postBoard(board);
+      console.log(result);
+
+      // 페이지 이동
+      navigate(`/boards?page=${1}&size=${size}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div>
+      <BoardForm onSubmit={onSubmit} />
+    </div>
+  );
+};
+
+export default BoardWrite;
