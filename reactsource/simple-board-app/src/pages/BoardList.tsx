@@ -1,7 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import useBoards from "../hooks/useBoards";
 import Pagination from "../components/Pagination";
-import { useAuth } from "react";
 
 const BoardList = () => {
   // ? 뒤의 파라메터 가져오기
@@ -12,10 +11,6 @@ const BoardList = () => {
 
   const { data, loading } = useBoards(currentPage, size);
   const { total, total_pages } = data;
-
-  // 로그인 정보
-  const {isLoggedIn} = useAuth()
-
 
   // 화면에 보여줄 페이지개수 제한
   const pageSize = 5;
@@ -45,14 +40,13 @@ const BoardList = () => {
 
           <p className="mt-2 text-slate-500">다양한 이야기를 자유롭게 나눠보세요.</p>
         </div>
-      {isLoggedIn && (
+
         <Link
           to="/boards/write"
           className="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
         >
           ✍️ 글쓰기
         </Link>
-      )}
       </div>
       {/* Search */}
       <div className="mb-6 flex gap-2">

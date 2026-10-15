@@ -1,5 +1,4 @@
-import axios from "axios"
-import { AxiosInstance } from "axios";
+import axios from "axios";
 import type { BoardCreate, BoardUpdate, BoardUpSert } from "../types/board";
 
 // fastapi router 랑 통신
@@ -17,7 +16,7 @@ export const getBoards = async (page: number, size: number) => {
 };
 
 export const getBoard = async (id: string) => {
-  const response = await AxiosInstance.get(`${url}/${id}`);
+  const response = await axios.get(`${url}/${id}`);
   return response.data;
 };
 

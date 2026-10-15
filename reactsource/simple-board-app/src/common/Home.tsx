@@ -49,14 +49,8 @@ const Home = () => {
             </Link>
 
             <Link
-              onClick={(e)=>{
-                if (!isLoggedIn) {
-                  e.preventDefault()
-                  alert("로그인이 필요한 서비스입니다.")
-                }
-              }}
               to="/boards/write"
-              className="rounded-lg border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition ${isLoggedIn ? hover:bg-white/10 : "cursor-not-allowed opacity-50
+              className="rounded-lg border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
             >
               글 작성하기
             </Link>
