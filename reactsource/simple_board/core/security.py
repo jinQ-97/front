@@ -8,10 +8,10 @@ password_hash = PasswordHash.recommended()
 
 
 # 암호화
-def hash_password(plain: str) -> str:
+def hash_password(plain:str) -> str:
     return password_hash.hash(plain)
 
 
 # 12345 암호화된 내용 비교
-def verify_password(plain: str, hashed: str) -> bool:
+def verify_password(plain: str, hashed:str) -> bool:
     return password_hash.verify(plain, hashed)

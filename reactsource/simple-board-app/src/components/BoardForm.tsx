@@ -3,21 +3,25 @@ import { useNavigate } from "react-router-dom";
 import type { BoardCreate, BoardUpdate } from "../types/board";
 
 const BoardForm = ({ onSubmit, board }: { onSubmit: (board: BoardUpdate) => void; board?: BoardCreate }) => {
-  // board 내용이 있는경우(edit) / 없는 경우 - 새글 작성
-  const [form, setForm] = useState(board ?? { title: "", contents: "", user_id: 1 });
+  // board 내용이 있는 경우 (edit) / 없는 경우 - 새글 작성
+  const [form, setform] = useState(
+    board ?? {
+      title: "",
+      contents: "",
+      user_id: 1,
+    },
+  );
   const { title, contents } = form;
-
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleCange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
-    setForm({
+    setform({
       ...form,
       [name]: value,
     });
   };
-
   return (
     <div>
       <div className="mb-8">
@@ -44,8 +48,9 @@ const BoardForm = ({ onSubmit, board }: { onSubmit: (board: BoardUpdate) => void
         {/* Title */}
         <div>
           <label className="mb-2 block text-sm font-semibold">제목</label>
+
           <input
-            onChange={handleChange}
+            onChange={handleCange}
             value={title}
             name="title"
             type="text"
@@ -57,8 +62,9 @@ const BoardForm = ({ onSubmit, board }: { onSubmit: (board: BoardUpdate) => void
         {/* Content */}
         <div className="mt-6">
           <label className="mb-2 block text-sm font-semibold">내용</label>
+
           <textarea
-            onChange={handleChange}
+            onChange={handleCange}
             value={contents}
             name="contents"
             rows={5}

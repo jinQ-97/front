@@ -12,6 +12,7 @@ const BoardWrite = () => {
   // submit 시 서버 전송
   const onSubmit = async (board: BoardCreate) => {
     try {
+      // 서버로 데이터 요청
       const result = await postBoard(board);
       console.log(result);
 

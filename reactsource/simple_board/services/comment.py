@@ -1,21 +1,20 @@
-# CRUD => 모델 기준
+# CRUD
 from sqlalchemy.orm import Session
-from schemas.comment import CommentCreate, CommentUpdate
+from schemas.comment import CommnetCreate, CommnetUpdate
 from repository.models.comment import Comment
 from exceptions.board import CommentNotFoundException
 
 
 # 댓글 등록
-def comment_create(data: CommentCreate, db: Session):
+def comment_create(data:CommnetCreate, db:Session):
     comment = Comment(body=data.body, user_id=data.user_id, board_id=data.board_id)
     db.add(comment)
     db.commit()
     db.refresh(comment)
     return comment
 
-
 # 댓글 수정
-def comment_update(comment_id: int, data: CommentUpdate, db: Session):
+def comment_update(comment_id:int, data:CommnetUpdate, db:Session):
     # 수정할 대상 찾기
     comment = db.get(Comment, comment_id)
 
@@ -31,12 +30,12 @@ def comment_update(comment_id: int, data: CommentUpdate, db: Session):
 
 
 # 댓글 삭제
-def comment_delete(comment_id: int,db: Session):
+def comment_delete(comment_id:int, db:Session):
     # 삭제할 대상 찾기
     comment = db.get(Comment, comment_id)
 
     if comment is None:
-        raise CommentNotFoundException
+            raise CommentNotFoundException
 
     db.delete(comment)
     db.commit()

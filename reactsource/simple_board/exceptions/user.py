@@ -2,7 +2,7 @@ class UserNotFoundException(Exception):
     pass
 
 
-class UserAlreadyExistsException(Exception):
+class UserAlreadyExistsExcepation(Exception):
     pass
 
 
@@ -10,8 +10,9 @@ class InvalidPasswordException(Exception):
     pass
 
 
-class SamePasswordException(Exception):
+class SamePasswordExcepation(Exception):
     pass
 
-class UserCredentialsException(Exception):
+
+class UserCredentialsExcepation(Exception):
     pass

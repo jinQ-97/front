@@ -40,12 +40,12 @@ const Pagination = ({ currentPage, totalPages, onPageChange, start, end }: Pagin
             key={pageNumber}
             onClick={() => onPageChange(pageNumber)}
             className={`
-                      w-9 h-9
-                      rounded-md
-                      text-sm
-                      font-medium
-                       ${currentPage === pageNumber ? "bg-blue-600 text-white" : "text-gray-600 hover:bg-gray-100"}   
-                              `}
+                w-9 h-9
+                rounded-md
+                text-sm
+                font-medium
+                ${currentPage === pageNumber ? "bg-blue-600 text-white" : "text-gray-600 hover:bg-gray-100"}
+                `}
           >
             {pageNumber}
           </button>
@@ -57,16 +57,16 @@ const Pagination = ({ currentPage, totalPages, onPageChange, start, end }: Pagin
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         className="
-            px-3 py-2
-            rounded-md
-            text-sm
-            border border-gray-200
-            bg-white
-            text-gray-600
-            hover:bg-gray-100
-            disabled:opacity-40
-            disabled:cursor-not-allowed
-          "
+        px-3 py-2
+        rounded-md
+        text-sm
+        border border-gray-200
+        bg-white
+        text-gray-600
+        hover:bg-gray-100
+        disabled:opacity-40
+        disabled:cursor-not-allowed
+        "
       >
         ›
       </button>

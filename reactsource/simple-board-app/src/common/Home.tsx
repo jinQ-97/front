@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import type { BoardResponse } from "../types/board";
 import { getRecentBoards } from "../apis/boardApi";
+import { useAuth } from "./AuthContext";
 
 const Home = () => {
   const [recentPosts, setRecentPosts] = useState<BoardResponse[]>([]);
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     const recent = async () => {
@@ -42,6 +44,12 @@ const Home = () => {
 
           <div className="mt-8 flex gap-3">
             <Link
+              onClick={(e) => {
+                if (!isLoggedIn) {
+                  e.preventDefault();
+                  alert("로그인이 필요한 서비스입니다.");
+                }
+              }}
               to="/boards"
               className="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-500"
             >
@@ -49,14 +57,14 @@ const Home = () => {
             </Link>
 
             <Link
-              onClick={(e)=>{
+              onClick={(e) => {
                 if (!isLoggedIn) {
-                  e.preventDefault()
-                  alert("로그인이 필요한 서비스입니다.")
+                  e.preventDefault();
+                  alert("로그인이 필요한 서비스입니다.");
                 }
               }}
               to="/boards/write"
-              className="rounded-lg border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition ${isLoggedIn ? hover:bg-white/10 : "cursor-not-allowed opacity-50
+              className={`rounded-lg border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition ${isLoggedIn ? "hover:bg-white/10" : "cursor-not-allowed opacity-50"} `}
             >
               글 작성하기
             </Link>
@@ -84,6 +92,12 @@ const Home = () => {
         </Link>
 
         <Link
+          onClick={(e) => {
+            if (!isLoggedIn) {
+              e.preventDefault();
+              alert("로그인이 필요한 서비스입니다.");
+            }
+          }}
           to="/boards/write"
           className="group rounded-xl border border-slate-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-sm"
         >
@@ -145,9 +159,9 @@ const Home = () => {
                   <h3 className="truncate text-sm font-medium text-slate-800">{post.title}</h3>
 
                   <div className="mt-2 flex gap-3 text-xs text-slate-400">
-                    <span>{post.user_id}</span>
+                    <span>{post.user.name}</span>
                     <span>{post.created_at}</span>
-                    <span>조회 </span>
+                    <span>조회 {post.views}</span>
                   </div>
                 </div>
 
@@ -168,8 +182,14 @@ const Home = () => {
           </div>
 
           <Link
+            onClick={(e) => {
+              if (!isLoggedIn) {
+                e.preventDefault();
+                alert("로그인이 필요한 서비스입니다.");
+              }
+            }}
             to="/boards/write"
-            className="shrink-0 rounded-lg bg-indigo-600 px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-indigo-700"
+            className={`shrink-0 rounded-lg bg-indigo-600 px-5 py-2.5 text-center text-sm font-semibold text-white ${isLoggedIn ? "hover:bg-indigo-700" : "cursor-not-allowed opacity-50"} `}
           >
             게시글 작성
           </Link>

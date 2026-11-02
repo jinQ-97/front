@@ -4,6 +4,7 @@ import useBoard from "../hooks/useBoard";
 import ReplyComp from "../components/ReplyComp";
 import { deleteComment, postComment, putComment } from "../apis/commentApi";
 import type { CommentCreate } from "../types/board";
+import { useAuth } from "../common/AuthContext";
 
 const BoardDetail = () => {
   // 주소줄에 있는 id 가져오기
@@ -19,14 +20,15 @@ const BoardDetail = () => {
   const currentPage = Number(searchParams.get("page")) || 1;
   const size = Number(searchParams.get("size")) || 10;
 
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   const handleRemove = async (id: string | undefined) => {
     if (!id) return;
 
     try {
+      // 서버로 데이터 요청
       const result = await deleteBoard(id);
-      console.log("삭제 후 ", result);
+      console.log(result);
 
       // 페이지 이동
       navigate(`/boards?page=${currentPage}&size=${size}`);
@@ -34,54 +36,51 @@ const BoardDetail = () => {
       console.log(error);
     }
   };
+
   // 댓글 삭제
-  const handleCommentRemove = async (commentId) => {
+  const handleCommentRemove = async (commentId: number) => {
     if (!confirm("댓글을 삭제하시겠습니까?")) {
-      return
+      return;
     }
+
     try {
-      const result = await deleteComment(commentId)
-      console.log(result)
+      const result = await deleteComment(commentId);
+      console.log(result);
       // 현재 게시물 다시 읽어오기
-      refresh()
+      refresh();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+
   // 댓글 등록
-  const handleCommentSubmit = async (commentContent:string) => {
+  const handleCommentSubmit = async (commentContent: string) => {
     // id 가 undefinde 라면
     if (!id) {
-      return
+      return;
     }
 
     try {
-      const commnet:CommentCreate = {
-        user_id : 1,
-        board_id : parseInt(id),
-        body : commentContent,
-      }
+      const comment: CommentCreate = {
+        user_id: 1,
+        board_id: parseInt(id),
+        body: commentContent,
+      };
 
-      const result = postComment(comment)
-      console.log(result)
-      refresh()
+      const result = postComment(comment);
+      console.log(result);
+      refresh();
     } catch (error) {}
-  }
-  // 댓글수정
-  const handleCommentEdit = async (commentId:number, editContent:string) => {
+  };
+
+  // 댓글 수정
+  const handleCommentEdit = async (commentId: number, editContent: string) => {
     try {
-      const result = putComment(commentId, {body : editContent})
-      console.log(result)
-      refresh()
-    } catch (error) {
-      
-    }
-  }
-
-
-
-
-
+      const result = await putComment(commentId, { body: editContent });
+      console.log(result);
+      refresh();
+    } catch (error) {}
+  };
 
   if (loading) {
     return <p>Loading....</p>;
@@ -98,17 +97,17 @@ const BoardDetail = () => {
       <article className="rounded-xl border border-slate-200 bg-white">
         {/* Header */}
         <div className="border-b border-slate-200 px-8 py-7">
-          <h1 className="text-2xl font-bold">{board.title}</h1>
+          <h1 className="text-2xl font-bold">{board?.title}</h1>
           <div className="mt-4 flex items-center gap-4 text-sm text-slate-400">
-            <span className="font-medium text-slate-600">{board.user_id}</span>
+            <span className="font-medium text-slate-600">{board?.user.name}</span>
             <span>{board.created_at}</span>
-            <span>조회 42</span>
+            <span>{board.views}</span>
           </div>
         </div>
 
         {/* Content */}
         <div className="min-h-100 px-8 py-10 leading-8 text-slate-700">
-          <p>{board.contents}</p>
+          <p>{board?.contents}</p>
         </div>
 
         {/* Buttons */}
@@ -128,7 +127,8 @@ const BoardDetail = () => {
                   search: `?page=${currentPage}&size=${size}`,
                 })
               }
-              className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium hover:bg-slate-50 disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200"
+              className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium hover:bg-slate-50
+              disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200"
               disabled={user?.user_id !== board.user_id}
             >
               수정
@@ -140,7 +140,8 @@ const BoardDetail = () => {
                   handleRemove(id);
                 }
               }}
-              className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200"
+              className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800
+               disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200"
               disabled={user?.user_id !== board.user_id}
             >
               삭제
@@ -148,8 +149,13 @@ const BoardDetail = () => {
           </div>
         </div>
       </article>
-      {/* 댓글 보여주기 posts/${id}/comments */}
-      <ReplyComp comments={board.comments} handleCommentRemove={handleCommentRemove} handleCommentSubmit={handleCommentSubmit} handleCommentEdit={handleCommentEdit}/>
+      {/* 댓글 보여주기 /posts/${id}/comments */}
+      <ReplyComp
+        comments={board.comments}
+        handleCommentRemove={handleCommentRemove}
+        handleCommentSubmit={handleCommentSubmit}
+        handleCommentEdit={handleCommentEdit}
+      />
     </div>
   );
 };

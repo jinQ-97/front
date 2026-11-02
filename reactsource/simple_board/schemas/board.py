@@ -4,53 +4,50 @@
 from pydantic import BaseModel
 from datetime import datetime
 
-
 class UserResponse(BaseModel):
-    user_id: int
-    name: str
-
+    user_id:int
+    name:str
 
 class CommentResponse(BaseModel):
-    comment_id: int
+    comment_id:int 
     body: str
     user_id: int
     # 댓글 작성자 정보
-    user: UserResponse
+    user:UserResponse
     board_id: int
     created_at: datetime
 
 
-class BoardResponse(BaseModel):
-    id: int
-    title: str
-    contents: str
-    user_id: int
-    created_at: datetime
-    # 게시글 작성자 이름
-    user: UserResponse
-    # 댓글목록
-    comments: list[CommentResponse]
-
-
 class BoardCreate(BaseModel):
-    title: str
-    contents: str
+    title:str
+    contents:str
 
 
 class BoardUpdate(BaseModel):
-    title: str | None = None
-    contents: str | None = None
+    title:str | None = None
+    contents:str | None = None
 
-
-
-
+class BoardResponse(BaseModel):
+    id: int
+    title:str
+    contents:str
+    user_id: int
+    created_at:datetime
+    # 조회수
+    views: int
+    # 게시글 작성자 이름
+    user: UserResponse
+    # 댓글목록
+    comments:list[CommentResponse]
 
 class BoardPageResponse(BaseModel):
-    items: list[BoardResponse]
-    total: int
-    page: int
-    size: int
+    items:list[BoardResponse]
+    total:int
+    page:int
+    size:int
     total_pages: int
+    criteria: str
+    keyword: str
 
 
 class Comment(BaseModel):
@@ -58,4 +55,5 @@ class Comment(BaseModel):
     id: int
     name: str
     email: str
-    body: str
+    body : str
+
