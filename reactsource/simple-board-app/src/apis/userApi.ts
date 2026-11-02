@@ -17,5 +17,8 @@ export const getCurrentUser = async () => {
   const response = await axiosInstance.get(`${SERVER_URL}/me`);
   return response.data;
 };
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0

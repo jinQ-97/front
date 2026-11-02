@@ -1,8 +1,11 @@
 import { Link, useSearchParams } from "react-router-dom";
 import useBoards from "../hooks/useBoards";
 import Pagination from "../components/Pagination";
+<<<<<<< HEAD
 import { useAuth } from "../common/AuthContext";
 import { useState } from "react";
+=======
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
 
 const BoardList = () => {
   // ? 뒤의 파라메터 가져오기
@@ -70,6 +73,7 @@ const BoardList = () => {
 
           <p className="mt-2 text-slate-500">다양한 이야기를 자유롭게 나눠보세요.</p>
         </div>
+<<<<<<< HEAD
         {isLoggedIn && (
           <Link
             to="/boards/write"
@@ -78,6 +82,15 @@ const BoardList = () => {
             ✍️ 글쓰기
           </Link>
         )}
+=======
+
+        <Link
+          to="/boards/write"
+          className="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
+        >
+          ✍️ 글쓰기
+        </Link>
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
       </div>
 
       {/* Search */}

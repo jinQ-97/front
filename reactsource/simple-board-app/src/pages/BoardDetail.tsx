@@ -20,8 +20,11 @@ const BoardDetail = () => {
   const currentPage = Number(searchParams.get("page")) || 1;
   const size = Number(searchParams.get("size")) || 10;
 
+<<<<<<< HEAD
   const { user } = useAuth();
 
+=======
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
   const handleRemove = async (id: string | undefined) => {
     if (!id) return;
 
@@ -37,7 +40,11 @@ const BoardDetail = () => {
     }
   };
 
+<<<<<<< HEAD
   // 댓글 삭제
+=======
+  //댓글 삭제
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
   const handleCommentRemove = async (commentId: number) => {
     if (!confirm("댓글을 삭제하시겠습니까?")) {
       return;
@@ -53,7 +60,11 @@ const BoardDetail = () => {
     }
   };
 
+<<<<<<< HEAD
   // 댓글 등록
+=======
+  //댓글 등록
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
   const handleCommentSubmit = async (commentContent: string) => {
     // id 가 undefinde 라면
     if (!id) {
@@ -73,7 +84,11 @@ const BoardDetail = () => {
     } catch (error) {}
   };
 
+<<<<<<< HEAD
   // 댓글 수정
+=======
+  //댓글 수정
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
   const handleCommentEdit = async (commentId: number, editContent: string) => {
     try {
       const result = await putComment(commentId, { body: editContent });
@@ -99,7 +114,11 @@ const BoardDetail = () => {
         <div className="border-b border-slate-200 px-8 py-7">
           <h1 className="text-2xl font-bold">{board?.title}</h1>
           <div className="mt-4 flex items-center gap-4 text-sm text-slate-400">
+<<<<<<< HEAD
             <span className="font-medium text-slate-600">{board?.user.name}</span>
+=======
+            <span className="font-medium text-slate-600">{board.user.name}</span>
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
             <span>{board.created_at}</span>
             <span>{board.views}</span>
           </div>
@@ -127,9 +146,13 @@ const BoardDetail = () => {
                   search: `?page=${currentPage}&size=${size}`,
                 })
               }
+<<<<<<< HEAD
               className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium hover:bg-slate-50
               disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200"
               disabled={user?.user_id !== board.user_id}
+=======
+              className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium hover:bg-slate-50"
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
             >
               수정
             </button>
@@ -140,16 +163,24 @@ const BoardDetail = () => {
                   handleRemove(id);
                 }
               }}
+<<<<<<< HEAD
               className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800
                disabled:bg-slate-100 disabled:text-slate-400 disabled:border-slate-200"
               disabled={user?.user_id !== board.user_id}
+=======
+              className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
             >
               삭제
             </button>
           </div>
         </div>
       </article>
+<<<<<<< HEAD
       {/* 댓글 보여주기 /posts/${id}/comments */}
+=======
+      {/* 댓글 보여주기 posts/${id}/comments */}
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
       <ReplyComp
         comments={board.comments}
         handleCommentRemove={handleCommentRemove}

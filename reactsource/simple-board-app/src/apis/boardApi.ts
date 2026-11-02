@@ -1,6 +1,10 @@
 import axios from "axios";
+<<<<<<< HEAD
 import type { BoardCreate, BoardUpdate } from "../types/board";
 import axiosInstance from "./axios";
+=======
+import type { BoardCreate, BoardUpdate, BoardUpSert } from "../types/board";
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
 
 // fastapi router 랑 통신
 
@@ -17,7 +21,11 @@ export const getBoards = async (page: number, size: number, criteria: string, ke
 };
 // https://jsonplaceholder.typicode.com/posts/3
 export const getBoard = async (id: string) => {
+<<<<<<< HEAD
   const response = await axiosInstance.get(`${url}/${id}`);
+=======
+  const response = await axios.get(`${url}/${id}`);
+>>>>>>> 1c7146e8ca3d9371d48c7c2c89f7ee7acac5a8b0
   return response.data;
 };
 
